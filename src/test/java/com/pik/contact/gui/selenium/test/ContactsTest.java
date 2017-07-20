@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest("server.port:8090")
+@Ignore
 public class ContactsTest {
 
     @Value("${local.server.port}")
