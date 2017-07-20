@@ -224,8 +224,9 @@
   <version>2.18.1</version>
   <configuration>
           <excludes>
-            <exclude>**/ContactsTest.java</exclude>
-            <exclude>**/RunCukesTest.java</exclude>
+            <exclude>**/*ContactsTest.java</exclude>
+            <exclude>**/*RunCukesTest.java</exclude>
+               <exclude>**/*ContactServiceTest.java</exclude>
           </excludes>
         </configuration>
 </plugin>
@@ -234,8 +235,10 @@
   <version>2.18.1</version>
   <configuration>
     <includes>
-      <include>**/ContactsTest.java</include>
-        <include>**/RunCukesTest.java</include>
+      <include>**/*ContactsTest.java</include>
+        <include>**/*RunCukesTest.java</include>
+         <include>**/*ContactServiceTest.java</include>
+         
     </includes>
     
   </configuration>
