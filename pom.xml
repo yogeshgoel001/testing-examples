@@ -219,7 +219,35 @@
                     </targetTests>
                 </configuration>
             </plugin>
-
+<plugin>
+  <artifactId>maven-surefire-plugin</artifactId>
+  <version>2.18.1</version>
+  <configuration>
+          <excludes>
+            <exclude>**/ContactsTest.java</exclude>
+            <exclude>**/RunCukesTest.java</exclude>
+          </excludes>
+        </configuration>
+</plugin>
+<plugin>
+  <artifactId>maven-failsafe-plugin</artifactId>
+  <version>2.18.1</version>
+  <configuration>
+    <includes>
+      <include>**/ContactsTest.java</include>
+        <include>**/RunCukesTest.java</include>
+    </includes>
+    
+  </configuration>
+  <executions>
+    <execution>
+      <goals>
+        <goal>integration-test</goal>
+        <goal>verify</goal>
+      </goals>
+    </execution>
+  </executions> 
+</plugin>
         </plugins>
     </build>
 
