@@ -8,5 +8,5 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         format   = {"pretty","html:target/cucumber","json:target/cucumber.json"},
         glue = {"com/pik/contact/cucumber","cucumber.runtime.java.spring.hooks"})
-public class RunCukesTest {
+public class RunCukesTestIT {
 }
