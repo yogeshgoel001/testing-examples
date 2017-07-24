@@ -50,7 +50,7 @@ public class ContactServiceTest {
     public void stores_contact_with_id() throws Exception {
         Contact contact = new Contact("John", "Doe", "Developer", "jdoe@company.com", "1234567890", "jdoe90");
 
-        //contactService.saveContact(contact);
+        contactService.saveContact(contact);
 
         ArgumentCaptor<Contact> argument = ArgumentCaptor.forClass(Contact.class);
         verify(contactRepository).save(argument.capture());
