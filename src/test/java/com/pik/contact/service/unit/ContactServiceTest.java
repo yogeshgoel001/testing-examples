@@ -54,7 +54,7 @@ public class ContactServiceTest {
 
         ArgumentCaptor<Contact> argument = ArgumentCaptor.forClass(Contact.class);
         verify(contactRepository).save(argument.capture());
-        assertThat(argument.getValue().getId()).isNull();
+        assertThat(argument.getValue().getId()).isNotNull();
 
     }
 }
