@@ -1,15 +1,13 @@
 package com.pik.contact.gui.selenium.setup;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import java.util.concurrent.TimeUnit;
 
 public class SeleniumDriver {
 
-    static WebDriver driver;
+    static private WebDriver driver;
 
     public static WebDriver getDriver() {
         if (driver == null) {
