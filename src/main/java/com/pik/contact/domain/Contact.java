@@ -81,7 +81,7 @@ public class Contact {
     }
 
     public String getFullName() {
-        return fullName;
+        return " " + fullName;
     }
 
     public void updateWith(Contact contact) {
