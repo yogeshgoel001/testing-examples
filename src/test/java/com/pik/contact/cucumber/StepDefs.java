@@ -3,13 +3,13 @@ package com.pik.contact.cucumber;
 import com.pik.contact.Application;
 import com.pik.contact.domain.Contact;
 import com.pik.contact.repository.ContactRepository;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.assertj.core.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -25,7 +25,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 @DirtiesContext
 @ContextConfiguration(classes = Application.class)
-@SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 public class StepDefs {
 
@@ -37,12 +36,17 @@ public class StepDefs {
     @Autowired
     private ContactRepository contactRepository;
 
-    public MockMvc getMockMvc() {
+    private MockMvc getMockMvc() {
         return webAppContextSetup(wac).build();
     }
 
+    @Before
+    public void clear_db() {
+        contactRepository.deleteAll();
+    }
+
     @Given("^there is a contact with name = \"(.*?)\"$")
-    public void there_is_a_contact_with_name(String name) throws Throwable {
+    public void there_is_a_contact_with_name(String name) {
         Contact contact = new Contact(name, "Doe", "Developer",null,null,null);
         contact.setId("123");
         contactRepository.save(contact);
@@ -83,7 +87,7 @@ public class StepDefs {
 
 
     @Given("^there is a contact with name = '([^\"]*)' and full name = '([^\"]*)'$")
-    public void there_is_a_contact_with_name_John_and_full_name_Doe(String name, String fullName) throws Throwable {
+    public void there_is_a_contact_with_name_John_and_full_name_Doe(String name, String fullName) {
         Contact contact = new Contact(name, fullName, null,null,null,null);
         contact.setId("123");
         contactRepository.save(contact);

@@ -2,27 +2,18 @@ package com.pik.contact.gui.selenium.test;
 
 import com.pik.contact.Application;
 import com.pik.contact.gui.selenium.pageobjects.ContactsPage;
-import com.pik.contact.gui.selenium.setup.SeleniumDriver;
 import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static com.pik.contact.gui.selenium.setup.SeleniumDriver.getDriver;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebAppConfiguration
-@IntegrationTest("server.port:8090")
-@Ignore
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ContactsTest {
 
     @Value("${local.server.port}")
@@ -36,7 +27,7 @@ public class ContactsTest {
     @Test
     public void should_display_contact() throws Exception {
         //given
-        ContactsPage contactsPage = new ContactsPage().open();
+        ContactsPage contactsPage = new ContactsPage(port).open();
         //when
         contactsPage.find("John");
         //then

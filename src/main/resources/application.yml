@@ -5,12 +5,3 @@ spring:
   profiles:
     active: demo
 
-
-flyway:
-  enabled: true
-
-security:
-  basic:
-    enabled: false
-
-

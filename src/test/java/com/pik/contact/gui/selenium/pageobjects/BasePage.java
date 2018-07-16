@@ -9,18 +9,27 @@ import java.util.concurrent.TimeUnit;
 
 import static com.pik.contact.gui.selenium.setup.SeleniumDriver.getDriver;
 
-public abstract class BasePage<T> {
+public abstract class BasePage<T extends BasePage> {
 
-    private static final String BASE_URL = "http://localhost:8090";
+    private static final String BASE_URL = "http://localhost:";
     private static final int LOAD_TIMEOUT = 30;
     private static final int REFRESH_RATE = 2;
+    private int port;
 
-    public T openPage(Class<T> clazz) {
-        T page = PageFactory.initElements(getDriver(), clazz);
-        getDriver().get(BASE_URL + getPageUrl());
-        ExpectedCondition pageLoadCondition = ((BasePage) page).getPageLoadCondition();
+    public BasePage(int port) {
+        this.port = port;
+    }
+
+    public T openPage() {
+        PageFactory.initElements(getDriver(), this);
+        getDriver().get(getBaseUrl() + getPageUrl());
+        ExpectedCondition pageLoadCondition = getPageLoadCondition();
         waitForPageToLoad(pageLoadCondition);
-        return page;
+        return (T) this;
+    }
+
+    private String getBaseUrl() {
+        return BASE_URL + port;
     }
 
     protected void waitForPageToLoad(ExpectedCondition pageLoadCondition) {
@@ -34,14 +43,12 @@ public abstract class BasePage<T> {
     /**
      * Provides condition when page can be considered as fully loaded.
      *
-     * @return
      */
     protected abstract ExpectedCondition getPageLoadCondition();
 
     /**
      * Provides page relative URL/
      *
-     * @return
      */
     public abstract String getPageUrl();
 }

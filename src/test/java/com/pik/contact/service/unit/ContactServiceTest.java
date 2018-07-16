@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class ContactServiceTest {
     ContactService contactService;
 
     @Test
-    public void stores_contact() throws Exception {
+    public void stores_contact() {
         Contact contact = new Contact("John", "Doe", "Developer", "jdoe@company.com", "1234567890", "jdoe90");
 
         contactService.saveContact(contact);
@@ -37,7 +37,7 @@ public class ContactServiceTest {
     }
 
     @Test
-    public void finds_contacts_lowercase() throws Exception {
+    public void finds_contacts_lowercase() {
         Contact contact = new Contact("John", "Doe", "Developer", "jdoe@company.com", "1234567890", "jdoe90");
         when(contactRepository.searchContacts("jo")).thenReturn(asList(contact));
 
@@ -47,7 +47,7 @@ public class ContactServiceTest {
     }
 
     @Test
-    public void stores_contact_with_id() throws Exception {
+    public void stores_contact_with_id() {
         Contact contact = new Contact("John", "Doe", "Developer", "jdoe@company.com", "1234567890", "jdoe90");
 
         contactService.saveContact(contact);
@@ -55,6 +55,5 @@ public class ContactServiceTest {
         ArgumentCaptor<Contact> argument = ArgumentCaptor.forClass(Contact.class);
         verify(contactRepository).save(argument.capture());
         assertThat(argument.getValue().getId()).isNotNull();
-
     }
 }

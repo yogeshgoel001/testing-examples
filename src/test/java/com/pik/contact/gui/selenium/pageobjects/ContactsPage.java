@@ -8,12 +8,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class ContactsPage extends BasePage<ContactsPage> {
 
     @FindBy(id = "filter")
-    WebElement filter;
+    private WebElement filter;
 
     @FindBy(css = "table > tbody > tr:nth-child(1) > th > strong > input")
-    WebElement firstContactTitle;
+    private WebElement firstContactTitle;
 
-	@Override
+    public ContactsPage(int port) {
+        super(port);
+    }
+
+    @Override
 	protected ExpectedCondition getPageLoadCondition() {
 		return ExpectedConditions.titleContains("Contact");
 	}
@@ -24,7 +28,7 @@ public class ContactsPage extends BasePage<ContactsPage> {
 	}
 
 	public ContactsPage open() {
-		return new ContactsPage().openPage(ContactsPage.class);
+		return openPage();
 	}
 
     public void find(String query) throws InterruptedException {

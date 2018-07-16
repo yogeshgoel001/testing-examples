@@ -1,17 +1,15 @@
 
 package com.pik.contact.service;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.validation.Valid;
-
+import com.pik.contact.domain.Contact;
+import com.pik.contact.repository.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pik.contact.domain.Contact;
-import com.pik.contact.repository.ContactRepository;
+import javax.validation.Valid;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 
 @Service
@@ -19,8 +17,12 @@ import com.pik.contact.repository.ContactRepository;
 public class ContactService {
     private final AtomicInteger idGeneration = new AtomicInteger(1000);
     
+    private final ContactRepository contactRepo;
+
     @Autowired
-    private ContactRepository contactRepo;
+    public ContactService(ContactRepository contactRepo) {
+        this.contactRepo = contactRepo;
+    }
 
 
     public List<Contact> searchContacts(String keyword) {
@@ -30,7 +32,7 @@ public class ContactService {
     }
 
     public Contact load(String id) {
-        return contactRepo.findOne(id);
+        return contactRepo.findById(id).orElse(null);
     }
 
     @Transactional

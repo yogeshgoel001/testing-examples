@@ -5,12 +5,11 @@ import com.pik.contact.domain.Contact;
 import com.pik.contact.repository.ContactRepository;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -21,10 +20,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Ignore
 @DirtiesContext
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class)
 @WebAppConfiguration
 public class ContactControllerTest {
 
@@ -40,9 +38,9 @@ public class ContactControllerTest {
         mockMvc = buildMockMvc(controller);
     }
 
-    protected MockMvc mockMvc;
+    private MockMvc mockMvc;
 
-    protected MockMvc buildMockMvc(Object... controllers) {
+    private MockMvc buildMockMvc(Object... controllers) {
         return MockMvcBuilders
                 .standaloneSetup(controllers)
                 .build();
@@ -55,7 +53,7 @@ public class ContactControllerTest {
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        Contact contact = repository.findOne(result.getResponse().getContentAsString());
+        Contact contact = repository.findById(result.getResponse().getContentAsString()).orElse(null);
         assertThat(contact.getName()).isEqualTo("John");
         assertThat(contact.getFullName()).isEqualTo("Doe");
     }

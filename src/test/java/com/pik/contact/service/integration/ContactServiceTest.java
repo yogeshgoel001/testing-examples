@@ -3,31 +3,29 @@ package com.pik.contact.service.integration;
 import com.pik.contact.Application;
 import com.pik.contact.domain.Contact;
 import com.pik.contact.service.ContactService;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-@Ignore
+
 @DirtiesContext
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class)
 @WebAppConfiguration
 public class ContactServiceTest {
     @Autowired
     private ContactService contactService;
 
     @Before
-    public void tearDown() {
+    public void setUp() {
         contactService.deleteAllContacts();
     }
 
